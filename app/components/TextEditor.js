@@ -1,6 +1,9 @@
+"use client";
 import React, { useState } from "react";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
 import 'react-quill/dist/quill.snow.css';
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const modules = {
     toolbar: [
@@ -12,8 +15,9 @@ const modules = {
         [{ list: "ordered" }, { list: "bullet" }],
         ["link", "image"],
         [{
-            color: ["red", "blue", "yellow", "perpl"
-                , "green", "yellow", "quarter", "white", "black", "transparent", "ital", "orange", "purple", "aqua", "silver", "darkblue", "fuchsia", "gray", "darkcyan", ""
+            color: [
+                "red", "blue", "yellow", "purple", "green", "white", "black", "transparent",
+                "orange", "silver", "darkblue", "fuchsia", "gray", "darkcyan"
             ]
         }],
         [{ background: ["red", "#785412", "silver"] }]
@@ -23,10 +27,7 @@ const modules = {
 const formats = [
     "header",
     "bold",
-    "emphasis",
-    "quotes",
     "italic",
-    "resizable",
     "underline",
     "strike",
     "blockquote",
@@ -35,7 +36,6 @@ const formats = [
     "link",
     "color",
     "image",
-    "video",
     "background",
     "align",
     "size",
@@ -43,24 +43,28 @@ const formats = [
 ];
 
 function TextEditor() {
-
     const [code, setCode] = useState("");
+
     const handleProcedureContentChange = (content, delta, source, editor) => {
         setCode(content);
-        // send the content to parent component
-        // callbackCode(content)
-        //let has_attribues = delta.ops[1].attributes || "";
-        //console.log(has_attribues);
-        //const cursorPosition = e.quill.getSelection().index;
-        // this.quill.insertText(cursorPosition, "★");
-        //this.quill.setSelection(cursorPosition + 1);
+    };
+
+    const copyToClipboard = () => {
+        if (typeof navigator !== 'undefined' && navigator.clipboard) {
+            navigator.clipboard.writeText(code).then(() => {
+                console.log("Text copied to clipboard");
+            }).catch(err => {
+                console.error("Failed to copy text: ", err);
+            });
+        } else {
+            console.error("Clipboard API not available");
+        }
     };
 
     return (
         <div className="flex flex-col justify-center w-full">
-            {/* {console.log(code)} */}
             <ReactQuill
-                // theme="snow"
+                theme="snow"
                 modules={modules}
                 formats={formats}
                 value={code}
@@ -70,10 +74,7 @@ function TextEditor() {
             <div className="flex mt-14 justify-center">
                 <button
                     className="w-full text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-                    onClick={() => {
-                        // aftr click copy code into clipboard
-                        navigator.clipboard.writeText(code)
-                    }}
+                    onClick={copyToClipboard}
                 >Copy</button>
             </div>
         </div>
@@ -81,4 +82,3 @@ function TextEditor() {
 }
 
 export default TextEditor;
-
