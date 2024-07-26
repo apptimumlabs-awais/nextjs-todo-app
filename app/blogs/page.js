@@ -1,45 +1,45 @@
- "use client";
+"use client";
 
-import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
-import { gql, useQuery } from "@apollo/client";
+// import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+// import { gql, useQuery } from "@apollo/client";
 import Link from "next/link";
 
-const query = gql`
-  query AllBlogPosts {
-    posts(first: 3, where: { orderby: { field: AUTHOR, order: DESC } }) {
-      edges {
-        node {
-          id
-          title
-          featuredImage {
-            node {
-              altText
-              sourceUrl
-            }
-          }
-          slug
-          link
-        }
-      }
-    }
-  }
-`;
+// const query = gql`
+//   query AllBlogPosts {
+//     posts(first: 3, where: { orderby: { field: AUTHOR, order: DESC } }) {
+//       edges {
+//         node {
+//           id
+//           title
+//           featuredImage {
+//             node {
+//               altText
+//               sourceUrl
+//             }
+//           }
+//           slug
+//           link
+//         }
+//       }
+//     }
+//   }
+// `;
 
 
 export default function Home() {
-  const { data } = useSuspenseQuery(query);
-  const posts = data?.posts?.edges;
-  console.log('posts :>> ', posts);
-//  const { data, loading, error } = useQuery(QUERY);
-console.log("data :>> ", data,  data?.posts?.edges[0]?.node);
+  // const { data } = useSuspenseQuery(query);
+  // const posts = data?.posts?.edges;
+  // console.log('posts :>> ', posts);
+  //  const { data, loading, error } = useQuery(QUERY);
+  // console.log("data :>> ", data, data?.posts?.edges[0]?.node);
   return (
     <>
-      {data ? (
-        <>
-          <section className="text-gray-600 body-font">
-            <div className="container px-5 py-24 mx-auto">
-              <div className="flex flex-wrap -m-4">
-                {posts?.map(({ node }, index) => (
+      {/* {data ? (
+        <> */}
+      <section className="text-gray-600 body-font">
+        <div className="container px-5 py-24 mx-auto">
+          <div className="flex flex-wrap -m-4">
+            {/* {posts?.map(({ node }, index) => (
                   <Link href={`/blogs/${node.slug}`} key={node.id} className="p-4 md:w-3/4">
                     <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
                       <img
@@ -107,16 +107,15 @@ console.log("data :>> ", data,  data?.posts?.edges[0]?.node);
                       </div>
                     </div>
                   </Link>
-                ))}
-              </div>
-            </div>
-          </section>
-        </>
-      ) : (
-        <div className="text-4xl">Loading.............</div>
-      )}
+                ))} */}
+          </div>
+        </div>
+      </section>
     </>
+    // ) : (
+    //   <div className="text-4xl">Loading.............</div>
+    // )}
+    // </>
   );
 }
 
- 

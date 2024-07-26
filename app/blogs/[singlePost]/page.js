@@ -1,39 +1,39 @@
 "use client";
 
-import { gql, useQuery } from "@apollo/client";
+// import { gql, useQuery } from "@apollo/client";
 
-import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+// import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
-export default  function Page({ params }) {
+export default function Page({ params }) {
   console.log("params :>> ", params);
   // Define your GraphQL query with variables
-  const query = gql`
-    query SinglePost($postId: ID!) {
-      post(idType: SLUG, id: $postId) {
-        id
-        title
-        featuredImage {
-          node {
-            altText
-            sourceUrl
-          }
-        }
-        slug
-        link
-        postId
-      }
-    }
-  `;
+  // const query = gql`
+  //   query SinglePost($postId: ID!) {
+  //     post(idType: SLUG, id: $postId) {
+  //       id
+  //       title
+  //       featuredImage {
+  //         node {
+  //           altText
+  //           sourceUrl
+  //         }
+  //       }
+  //       slug
+  //       link
+  //       postId
+  //     }
+  //   }
+  // `;
 
   // Use the useSuspenseQuery hook with variables
-  const { data } = useSuspenseQuery(query, {
-    variables: {
-      postId: params?.singlePost,
-    },
-  });
-  const post = data?.post;
-console.log('post :>> ', post);
-  console.log("data :>> ", data);
+  //   const { data } = useSuspenseQuery(query, {
+  //     variables: {
+  //       postId: params?.singlePost,
+  //     },
+  //   });
+  const post = {} // data?.post;
+  // console.log('post :>> ', post);
+  //   console.log("data :>> ", data);
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-24 mx-auto">
