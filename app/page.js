@@ -2,23 +2,23 @@ import Navbar from './components/Navbar.js'
 import Table from './components/Table.js'
 import Card from './components/Card.js'
 import TodoForm from "./TodoForm/Page.jsx";
-import {TodoCard} from "./components/Server.jsx";
+import { TodoCard } from "./components/Server.jsx";
 import { Suspense } from 'react';
 
 export default function Home() {
 
- 
+
   return (
     <>
       <TodoForm />
       <div className='flex flex-wrap w-3/4 mx-auto'>
         <Suspense fallback={<div>Loading...</div>}>
-        <TodoCard/>
+          <TodoCard />
 
         </Suspense>
-        </div>
+      </div>
 
-      
+
 
       {/* <div className="bg-white max-h-full">
         <Navbar />
